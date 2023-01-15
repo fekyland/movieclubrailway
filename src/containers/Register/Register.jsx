@@ -3,15 +3,9 @@ import { useNavigate } from "react-router-dom";
 import AuthService from "../../_services/AuthService";
 import TokenStorageService from "../../_services/TokenStorageService";
 import { validateLoginFormValues } from "../../_helpers/form-utilities";
-import "./Login.scss";
-import { useSelector, useDispatch } from 'react-redux'
-import { login as loginuser } from "../../Redux/reducer/User.js"
+import "./Register.scss";
 
-
-export default function Login() {
-   const userState = useSelector( (state)=>state.authReducer);
-   console.log(userState)
-   const dispatch = useDispatch();
+export default function Register() {
    const initialValues = {
       email: "",
       password: "",
@@ -24,34 +18,27 @@ export default function Login() {
    const [isSubmit, setIsSubmit] = useState(false);
 
    useEffect(() => {
-         
       const credentials = {
          // email: "super@super.com",
          // password: "123456",
+         name: formValues.name,
          email: formValues.email,
          password: formValues.password,
       };
       // verificar que no hay error
       if (Object.keys(formErrors).length == 0 && isSubmit) {
          console.log("LOGIN...");
-         (login(credentials));
+         register(credentials);
       }
       console.log("useEffect", formErrors);
    }, [formErrors]);
 
-   const login = async (credentials) => {
+   const register = async (credentials) => {
       try {
-         const res = await AuthService.login(credentials);
+         const res = await AuthService.register(credentials);
          console.log(res.data);
-         TokenStorageService.saveToken(res.data.token);
-         res.data.username = credentials.email
-         dispatch(loginuser(res.data));
-         if (res.data.message === "User Logged as SUPER_ADMIN"){
-           navigate("/admin");    
-       } else {
-           navigate("/user")
-       }
-                      
+         TokenStorageService.getToken(res.data.token);
+         navigate("/user");
       } catch (error) {
          console.log(error);
       }
@@ -78,13 +65,26 @@ export default function Login() {
    return (
       <div>
          <div className="container pt-5 col-lg-3">
-            <h2>Login</h2>
+            <h2>Register</h2>
 
             <pre className="text-start">
                {JSON.stringify(formValues, undefined, 2)}
             </pre>
 
             <form className="text-start" noValidate onSubmit={handleSubmit}>
+            <div className="mb-3">
+                  <label className="form-label">Name</label>
+                  <input
+                     type="name"
+                     name="name"
+                     className="form-control"
+                     value={formValues.name}
+                     onChange={handleChange}
+                  />
+                  <div className="form-text form-text-error">
+                     {formErrors.name}
+                  </div>
+                </div>
                <div className="mb-3">
                   <label className="form-label">Email address</label>
                   <input
@@ -116,7 +116,7 @@ export default function Login() {
                      type="submit"
                      className="btn btn-primary text-white fw-bold"
                   >
-                     Submit
+                     Register
                   </button>
                </div>
             </form>

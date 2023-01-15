@@ -2,8 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
 import logo from "../../assets/react.svg";
+import TokenStorageService from "../../_services/TokenStorageService";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+   const { username,status } = useSelector ((state) => state.authReducer)
+   console.log(username)
    let activeClassName = "activeNav";
 
    const setNavLinkClassName = ({ isActive }) => {
@@ -70,17 +74,38 @@ export default function Navbar() {
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        value=""
                      />
                      <button className="btn btn-outline-light" type="submit">
                         Search
                      </button>
                   </form>
                   <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
+                  </ul>
+                  <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
+                     <li className="nav-item">
+                        <NavLink to="/Register" className={setNavLinkClassName}>
+                           Register
+                        </NavLink>
+                     </li>
+                  </ul>
+                  <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
+                     {!status ? 
+                     (
                      <li className="nav-item">
                         <NavLink to="/login" className={setNavLinkClassName}>
                            Login
                         </NavLink>
                      </li>
+                     ) :
+                     (
+                        <li className="nav-item">
+                        <button className = "btn btn-link text-white"> 
+                           Logout
+                        </button>
+                     </li>
+                     )}
+                     
                   </ul>
                </div>
             </div>

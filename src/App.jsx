@@ -10,6 +10,11 @@ import MovieDetail from "./containers/MovieDetail/MovieDetail";
 import About from "./containers/About/About";
 import Login from "./containers/Login/Login";
 import Admin from "./containers/Admin/Admin";
+import Register from "./containers/Register/Register";
+import User from "./components/User/User";
+import Counter from "./Redux/Componentes/Counter";
+import Reader from "./Redux/Componentes/Reader";
+import RentedMovie from "./RentedMovie/RentedMovie";
 
 function App() {
    return (
@@ -19,10 +24,16 @@ function App() {
             <Routes>
                <Route path="/" element={<Navigate to="/movies" />} />
                <Route path="/movies" element={<MovieList />} />
-               <Route path="/movies/:id" element={<MovieDetail />} />
+               <Route path="/rented_movies" element={<RentedMovie />} />
+               <Route path="/movies/id/:id" element={<MovieDetail />} />
                <Route path="/about" element={<About />} />
                <Route path="/login" element={<Login />} />
+               <Route path="/register" element={<Register />} />
                <Route path="/admin" element={<Admin />} />
+               <Route path="/user"  element={<User />} />
+               <Route path="/counter"  element={<Counter />} />
+               <Route path="/reader"  element={<Reader />} />
+               
             </Routes>
          </BrowserRouter>
       </div>

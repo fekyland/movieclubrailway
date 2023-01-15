@@ -10,7 +10,7 @@ function Movie({ movie }) {
 
    // handlers
    const getMovieDetails = (movie) => {
-      navigate(`/movies/${movie.id}`);
+      navigate(`/movies/id/${movie.id}`);
    };
 
    const getYear = (date) => format(Date.parse(date), "yyyy");

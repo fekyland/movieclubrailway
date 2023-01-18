@@ -12,8 +12,6 @@ import Login from "./containers/Login/Login";
 import Admin from "./containers/Admin/Admin";
 import Register from "./containers/Register/Register";
 import User from "./components/User/User";
-import Counter from "./Redux/Componentes/Counter";
-import Reader from "./Redux/Componentes/Reader";
 import RentedMovie from "./RentedMovie/RentedMovie";
 
 function App() {
@@ -31,9 +29,7 @@ function App() {
                <Route path="/register" element={<Register />} />
                <Route path="/admin" element={<Admin />} />
                <Route path="/user"  element={<User />} />
-               <Route path="/counter"  element={<Counter />} />
-               <Route path="/reader"  element={<Reader />} />
-               
+ 
             </Routes>
          </BrowserRouter>
       </div>

@@ -21,14 +21,37 @@ UserService.getById = async (token) => {
 
   return await axios.get(apiUrl, config)
 }
-UserService.getById = async (token) => {
-  const apiUrl = environment.BASE_API_URL + '/rented/:query'
+UserService.rentMovie = async (userId, movieId) => {
+  try {
+    const apiURL = `${environment.BASE_URL}/users/${userId}/rent/${movieId}`;
+    const res = await axios.patch(apiURL);
 
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
+};
+UserService.deleteMovie = async (userId, movieId) => {
+  try {
+    const apiURL = `${environment.BASE_URL}/users/${userId}/delete/${movieId}`;
+    const res = await axios.patch(apiURL);
 
-  return await axios.get(apiUrl, config)
-}
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+UserService.deleteUser = async (user) => {
+  try{
+     const apiUrl = `${environment.BASE_API_URL}/users/delete/${user._id}`;
+     const res = await axios.delete(apiUrl);
+
+     return res.data;
+
+  }catch (error){
+     console.log(error);
+
+  }
+};
 
 export default UserService

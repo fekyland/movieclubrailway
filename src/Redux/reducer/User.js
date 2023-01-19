@@ -16,7 +16,7 @@ export const loginReducer = createSlice({
       //accion + login
       (state.status = action.payload.success), //state
       (state.username = action.payload.username)
-      state.type = action.payload.message
+      state.type = action.payload.message 
       state.token = action.payload.token //le pasamos el estado de auten del usuarion
     },
     logout: (state) => {

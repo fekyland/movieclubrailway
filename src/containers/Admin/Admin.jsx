@@ -16,14 +16,19 @@ export default function Admin() {
   const getAllUsers = async () => {
     try {
       const res = await UserService.getAllUsers(token)
-      //setUsers(res.data);
+      setUsers(res.data.data);
       console.log(res.data)
-      // console.log(setUsers);
+      console.log(setUsers);
     } catch (error) {
       console.log(error.message || error)
     }
   }
-
+  const handleDelete = async(userToDelete) => {
+    const res = await UserService.deleteUser(userToDelete);  
+    console.log(res);
+    await getAllUsers(token);
+    console.log(users);
+  }
   const handleLogout = () => {
     TokenStorageService.logOut()
     navigate('/')
@@ -41,6 +46,9 @@ export default function Admin() {
               <li>{user.email}</li>
               <li>{user.role}</li>
             </ol>
+            <div className="admin-buttons">
+           <button onClick={()=>{handleDelete(user)}} className='delete-user'>borrar</button>
+          </div>
           </div>
         ))}
       </div>

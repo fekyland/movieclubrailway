@@ -6,6 +6,7 @@ import './MovieDetail.scss'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { alquilarPeliculas } from '../../Redux/reducer/peliculasReducer'
+import  UserService from "../../_services/UserService"
 
 import RentedMovie from '../../RentedMovie/RentedMovie'
 
@@ -14,6 +15,7 @@ import RentedMovie from '../../RentedMovie/RentedMovie'
 export default function MovieDetail() {
   const dispatch = useDispatch()
   const alquiladas = useSelector((state) => state.peliculas)
+  const userid = useSelector((state) => state.peliculas)
   //const userState = useSelector( (state)=>state.initialState.token);
   const [rentStatus, setRentStatus] = useState(false)
   const [statusAlquilada, setStatusAlquilada] = useState(false)
@@ -23,6 +25,7 @@ export default function MovieDetail() {
   console.log(alquiladas)
   useEffect(() => {
     getSingleMovie()
+    getRentedMovies()
   }, [])
 
   const getSingleMovie = async () => {
@@ -34,7 +37,15 @@ export default function MovieDetail() {
       console.log(error.message || error)
     }
   }
-
+  const getRentedMovies = async (id) => {
+    try {
+      const res = await UserService.rentMovie(id)
+      //(res.data.results)
+      console.log('res.data.results', res.data.results)
+    } catch (error) {
+      console.log(error.message || error)
+    }
+  }
   console.log(statusAlquilada)
 
   const getYear = (date) => format(Date.parse(date), 'yyyy')

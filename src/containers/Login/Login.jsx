@@ -48,6 +48,8 @@ export default function Login() {
       const res = await AuthService.login(credentials) //res
       console.log(res.data)
       TokenStorageService.saveToken(res.data.token)
+      console.log(res.data.token)
+      sessionStorage.setItem("userId",res.data.id);
       res.data.username = credentials.email
       dispatch(loginuser(res.data))
       if (res.data.message === 'User Logged as SUPER_ADMIN') {

@@ -21,6 +21,7 @@ export default function MovieList() {
       const res = await MovieService.getAllMovies()
       //setPages(res.data.info.pages);
       setMovies(res.data.results)
+      console.log(res.data.results)
     } catch (error) {
       console.log(error.message || error)
     }

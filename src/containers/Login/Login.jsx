@@ -6,11 +6,9 @@ import { validateLoginFormValues } from '../../_helpers/form-utilities'
 import './Login.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { login as loginuser } from '../../Redux/reducer/User.js'
+import { alquilarPeliculas } from '../../Redux/reducer/peliculasReducer'
 
 export default function Login() {
-  
- 
-  
   //array vacio
   const initialValues = {
     email: '',
@@ -28,8 +26,6 @@ export default function Login() {
 
   useEffect(() => {
     const credentials = {
-      // email: "super@super.com",              //objeto con email y password
-      // password: "123456",
       email: formValues.email,
       password: formValues.password,
     }
@@ -45,13 +41,16 @@ export default function Login() {
   const login = async (credentials) => {
     //funcion  async login
     try {
-      const res = await AuthService.login(credentials) //res
-      console.log(res.data)
+      const res = await AuthService.login(credentials)
+      console.log(res.data) //res
+      console.log(res.data.movies)
       TokenStorageService.saveToken(res.data.token)
       console.log(res.data.token)
       sessionStorage.setItem("userId",res.data.id);
+      sessionStorage.setItem("moviesRented",JSON.stringify(res.data.movies));
       res.data.username = credentials.email
       dispatch(loginuser(res.data))
+      dispatch(alquilarPeliculas(res.data.movies))
       if (res.data.message === 'User Logged as SUPER_ADMIN') {
         navigate('/admin')
       } else {

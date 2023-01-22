@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit' //esto es un reduer
+import { useState } from 'react';
+const pelisStorage = sessionStorage.getItem("moviesRented");
+const movies = JSON.stringify(pelisStorage.peliculas)
+console.log(pelisStorage)
+
+
 
 const initialState = {
-  peliculas: [],
+  peliculas: movies || [],
 }
 
 console.log(initialState.value)
@@ -11,7 +17,7 @@ export const peliculasReducer = createSlice({
   reducers: {
     alquilarPeliculas: (state, action) => {
       //accion + login
-      state.peliculas = [...state.peliculas, action.payload] //state
+      state.peliculas = action.payload //state
     },
     limpiarPeliculas: (state) => {
       //accion + login

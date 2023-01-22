@@ -23,7 +23,7 @@ UserService.getById = async (token) => {
 }
 UserService.rentMovie = async (userId, movieId) => {
   try {
-    const apiURL = `${environment.BASE_URL}/users/${userId}/rent/${movieId}`;
+    const apiURL = `${environment.BASE_API_URL}/users/${userId}/rent/${movieId}`;
     const res = await axios.patch(apiURL);
 
     return res.data;

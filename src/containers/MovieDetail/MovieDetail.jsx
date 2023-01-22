@@ -6,55 +6,73 @@ import './MovieDetail.scss'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { alquilarPeliculas } from '../../Redux/reducer/peliculasReducer'
-import  UserService from "../../_services/UserService"
-
+import UserService from '../../_services/UserService'
 import RentedMovie from '../../RentedMovie/RentedMovie'
+import { useNavigate } from 'react-router-dom'
 
 // hacer una validacion para si esta logueado puede alquilar
 
 export default function MovieDetail() {
   const dispatch = useDispatch()
   const alquiladas = useSelector((state) => state.peliculas)
-  const userid = useSelector((state) => state.peliculas)
   //const userState = useSelector( (state)=>state.initialState.token);
+  const navigate  = useNavigate();
   const [rentStatus, setRentStatus] = useState(false)
   const [statusAlquilada, setStatusAlquilada] = useState(false)
   const [movie, setMovie] = useState({})
   const [showMoviesStatus, setShowMoviesStatus] = useState(false)
   const { id } = useParams()
+  const UserId = sessionStorage.getItem("userId");
+  const Rented = sessionStorage.getItem("moviesRented");
+  
+  console.log(UserId)
   console.log(alquiladas)
+
   useEffect(() => {
     getSingleMovie()
-    getRentedMovies()
+    
   }, [])
-
+  
   const getSingleMovie = async () => {
     try {
       const res = await MovieService.getSingleMovie(id)
       setMovie(res.data.results)
       console.log('res.data.results', res.data.results)
+      
     } catch (error) {
       console.log(error.message || error)
     }
   }
-  const getRentedMovies = async (id) => {
+  const RentMovie = async (UserId,id) => {
     try {
-      const res = await UserService.rentMovie(id)
-      //(res.data.results)
-      console.log('res.data.results', res.data.results)
+     const res =  await UserService.rentMovie(UserId,id)
+     console.log(res)
+     console.log(typeof(res.movies))
+     dispatch(alquilarPeliculas(res.movies))
+     console.log(res.movies)  
     } catch (error) {
       console.log(error.message || error)
     }
   }
+  
+
+
+
   console.log(statusAlquilada)
 
   const getYear = (date) => format(Date.parse(date), 'yyyy')
 
   const handleAlquilar = () => {
-    console.log('estoy alquilando')
-    console.log(movie)
-    dispatch(alquilarPeliculas(movie))
+   RentMovie(UserId,id)
+   console.log('estoy alquilando')
+   console.log(movie)
+   
   }
+
+  const handleRegisterRental = async () => {            //boton para 
+      navigate("/user")
+  }
+console.log(alquiladas)
   return (
     <>
       {showMoviesStatus ? (
@@ -108,7 +126,7 @@ export default function MovieDetail() {
                       <button
                         type="button"
                         class="btn btn-primary"
-                        onClick={() => setShowMoviesStatus(true)}
+                        onClick={() => navigate("/user")}
                       >
                         "ver peliculas alquiladas"
                       </button>

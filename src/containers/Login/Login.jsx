@@ -17,7 +17,6 @@ export default function Login() {
 
   // hooks
   const userState = useSelector((state) => state.authReducer) //trae el state para el login
-  console.log(userState)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formValues, setFormValues] = useState(initialValues)
@@ -42,10 +41,7 @@ export default function Login() {
     //funcion  async login
     try {
       const res = await AuthService.login(credentials)
-      console.log(res.data) //res
-      console.log(res.data.movies)
-      TokenStorageService.saveToken(res.data.token)
-      console.log(res.data.token)
+      TokenStorageService.saveToken(res.data.token)    
       sessionStorage.setItem("userId",res.data.id);
       sessionStorage.setItem("moviesRented",JSON.stringify(res.data.movies));
       res.data.username = credentials.email

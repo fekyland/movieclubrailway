@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 export default function MovieDetail() {
   const dispatch = useDispatch()
   const alquiladas = useSelector((state) => state.peliculas)
-  //const userState = useSelector( (state)=>state.initialState.token);
+  const userState = useSelector( (state)=>state.authReducer);
   const navigate  = useNavigate();
   const [rentStatus, setRentStatus] = useState(false)
   const [statusAlquilada, setStatusAlquilada] = useState(false)
@@ -24,9 +24,8 @@ export default function MovieDetail() {
   const { id } = useParams()
   const UserId = sessionStorage.getItem("userId");
   const Rented = sessionStorage.getItem("moviesRented");
-  
-  console.log(UserId)
-  console.log(alquiladas)
+  const [errorLogin, setErrorLogin] = useState(false)
+
 
   useEffect(() => {
     getSingleMovie()
@@ -46,33 +45,26 @@ export default function MovieDetail() {
   const RentMovie = async (UserId,id) => {
     try {
      const res =  await UserService.rentMovie(UserId,id)
-     console.log(res)
-     console.log(typeof(res.movies))
-     dispatch(alquilarPeliculas(res.movies))
-     console.log(res.movies)  
+     dispatch(alquilarPeliculas(res.movies))  
+     console.log("alquiler exitoso", res.movies)
     } catch (error) {
       console.log(error.message || error)
     }
   }
-  
-
-
-
-  console.log(statusAlquilada)
-
   const getYear = (date) => format(Date.parse(date), 'yyyy')
-
   const handleAlquilar = () => {
-   RentMovie(UserId,id)
-   console.log('estoy alquilando')
-   console.log(movie)
+    if(userState.status){
+      RentMovie(UserId,id)
+
+    }else {
+      setErrorLogin(true)
+      setTimeout(() => {
+        setErrorLogin(false)
+      }, 3500);
+    }
    
   }
-
-  const handleRegisterRental = async () => {            //boton para 
-      navigate("/user")
-  }
-console.log(alquiladas)
+console.log(userState)
   return (
     <>
       {showMoviesStatus ? (
@@ -115,22 +107,31 @@ console.log(alquiladas)
                     </div>
                     <h5 className="fw-bold">Overview</h5>
                     <p className="fs-5">{movie.overview}</p>
-                    <div>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        onClick={handleAlquilar}
-                      >
-                        {rentStatus ? 'alquilada' : 'alquilar'}
-                      </button>
-                      <button
+                        <div>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          onClick={handleAlquilar}
+                        >
+                          {rentStatus ? 'alquilada' : 'alquilar'}
+                        </button>
+                        {userState.status && 
+                        <button
                         type="button"
                         class="btn btn-primary"
                         onClick={() => navigate("/user")}
                       >
-                        "ver peliculas alquiladas"
+                        Ver peliculas alquiladas
                       </button>
+                        }
+                        
+                      </div>
+                      {errorLogin && 
+                          <div className='alert alert-success' role ="alert" >
+                          Tenes que loguearte para iniciar sesión. <a href="/login" className='alert-link'>Login</a>
                     </div>
+                      }
+                      
                   </div>
                 </div>
               </div>

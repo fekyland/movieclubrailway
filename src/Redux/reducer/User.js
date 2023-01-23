@@ -6,6 +6,7 @@ const initialState = {
   type: null, // string este usario es
   username: null,
   token: null,
+  
 }
 console.log(initialState.value)
 export const loginReducer = createSlice({
@@ -14,8 +15,8 @@ export const loginReducer = createSlice({
   reducers: {
     login: (state, action) => {
       //accion + login
-      (state.status = action.payload.success), //state
-      (state.username = action.payload.username)
+      state.status = action.payload.success, //state
+      state.username = action.payload.username
       state.type = action.payload.message 
       state.token = action.payload.token //le pasamos el estado de auten del usuarion
     },

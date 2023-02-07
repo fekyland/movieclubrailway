@@ -22,6 +22,8 @@ stored in flexible JSON-like documents.
 * [REACTJS](https://es.reactjs.org) This is a library that can make SPA websites.
 * [Mongoose ODM](https://mongoosejs.com/) This makes it easy to write MongoDB validation by providing a straight-forward, schema-based solution to model to application data.
 
+### On Deploy
+https://kaleidoscopic-frangipane-696f8c.netlify.app
 
 ### Authors
 @fekyland

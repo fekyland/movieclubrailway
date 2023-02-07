@@ -9,11 +9,12 @@ import { logout } from '../../Redux/reducer/User.js'
 import { limpiarPeliculas } from '../../Redux/reducer/peliculasReducer.js'
 
 export default function Navbar() {
-  const { username, status } = useSelector((state) => state.authReducer) //trae info de auth reducer
+  const { username, status, type } = useSelector((state) => state.authReducer) //trae info de auth reducer
   const dispatch = useDispatch()
-  console.log(username)
+  console.log(type)
   let activeClassName = 'activeNav'
   const navigate = useNavigate()
+
   const setNavLinkClassName = ({ isActive }) => {
     const className = ['nav-link', isActive ? activeClassName : undefined].join(
       ' ',
@@ -32,9 +33,9 @@ export default function Navbar() {
   console.log(status)
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-danger bg-danger fs-6">
+      <nav className="navbar navbar-expand-lg navbar-primary bg-primary fs-6">
         <div className="container">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/movies">
             <img
               src={logo}
               alt=""
@@ -43,6 +44,9 @@ export default function Navbar() {
               className="d-inline-block align-text-top"
             />
           </a>
+          <NavLink to="/movies" className={setNavLinkClassName} end>
+          PochocloFilms
+          </NavLink> 
           <button
             className="navbar-toggler"
             type="button"
@@ -57,9 +61,7 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink to="/movies" className={setNavLinkClassName} end>
-                  PochocloFilms
-                </NavLink>
+                
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#"></a>
@@ -69,33 +71,51 @@ export default function Navbar() {
               </li>
             </ul>
             <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value=""
-              />
-              <button className="btn btn-outline-light" type="submit">
-                Search
-              </button>
+             
             </form>
             <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
+            <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
+            <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
+            <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
+            <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
+            <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0"></ul>
             <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
+              
+              
               <li className="nav-item">
-                <NavLink to="/Register" className={setNavLinkClassName}>
+              <NavLink to="/Register" className={setNavLinkClassName}>
                   Register
                 </NavLink>
               </li>
+              
+              <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
+              {(type === "User Logged as SUPER_ADMIN" ? 
+               
+               ( <li className="nav-item">
+                  <NavLink to="/admin" className={setNavLinkClassName}>
+                    Admin Panel
+                  </NavLink>
+                </li>)
+                
+              :
+              (<li className="nav-item">
+              <NavLink to="/user" className={setNavLinkClassName}>
+                User panel
+              </NavLink>
+            </li>)
+              )}
+            </ul>
             </ul>
             <ul className="navbar-nav navbar-right  me-auto mb-2 mb-lg-0">
               {!status ? (
-                <li className="nav-item">
+                <li className="nav-item ">
                   <NavLink to="/login" className={setNavLinkClassName}>
                     Login
                   </NavLink>
                 </li>
               ) : (
+                
+                <ul>
                 <li className="nav-item">
                   <button
                     className="btn btn-link text-white"
@@ -104,6 +124,8 @@ export default function Navbar() {
                     Logout
                   </button>
                 </li>
+                
+                </ul>
               )}
             </ul>
           </div>

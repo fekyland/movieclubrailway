@@ -7,12 +7,12 @@ import { Header } from "./components/Header/Header";
 // containers
 import MovieList from "./containers/MovieList/MovieList";
 import MovieDetail from "./containers/MovieDetail/MovieDetail";
-import About from "./containers/About/About";
 import Login from "./containers/Login/Login";
 import Admin from "./containers/Admin/Admin";
 import Register from "./containers/Register/Register";
 import User from "./components/User/User";
 import RentedMovie from "./RentedMovie/RentedMovie";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 function App() {
    return (
@@ -24,7 +24,7 @@ function App() {
                <Route path="/movies" element={<MovieList />} />
                <Route path="/rented_movies" element={<RentedMovie />} />
                <Route path="/movies/id/:id" element={<MovieDetail />} />
-               <Route path="/about" element={<About />} />
+               <Route path="/adminpanel" element={<AdminPanel />} />
                <Route path="/login" element={<Login />} />
                <Route path="/register" element={<Register />} />
                <Route path="/admin" element={<Admin />} />

@@ -6,10 +6,9 @@ import { store } from ".././src/Redux/store.js"
 
 // bootstrap
 import "./custom-bootstrap.scss";
-//import "bootstrap/scss/bootstrap.scss";
 import "bootstrap/dist/js/bootstrap.bundle";
-
 import "./index.css";
+//import "bootstrap/scss/bootstrap.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <React.StrictMode>

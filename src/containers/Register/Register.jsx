@@ -7,8 +7,8 @@ import './Register.scss'
 
 export default function Register() {
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   }
   // hooks
   const navigate = useNavigate()
@@ -42,7 +42,7 @@ export default function Register() {
       const res = await AuthService.register(credentials)
       console.log(res.data)
       TokenStorageService.getToken(res.data.token)
-      navigate('/user')
+      navigate('/movies')
     } catch (error) {
       console.log(error)
     }
@@ -121,8 +121,6 @@ export default function Register() {
           </div>
         </form>
       </div>
-
-      {/* <button onClick={() => login(credentials)}>Enviar login</button> */}
     </div>
   )
 }

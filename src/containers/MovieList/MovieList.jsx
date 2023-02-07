@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import MovieService from '../../_services/MovieService'
 import './MovieList.scss'
-
 import Movie from '../../components/Movie/Movie'
-import NavPage from '../../components/NavPage/NavPage'
+
 
 export default function MovieList() {
   // state
   const [movies, setMovies] = useState([])
-  //const [page, setPage] = useState(1);
-  //const [pages, setPages] = useState(1);
 
   useEffect(() => {
     getAllMovies()
@@ -19,7 +16,6 @@ export default function MovieList() {
   const getAllMovies = async () => {
     try {
       const res = await MovieService.getAllMovies()
-      //setPages(res.data.info.pages);
       setMovies(res.data.results)
       console.log(res.data.results)
     } catch (error) {

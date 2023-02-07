@@ -41,6 +41,7 @@ export default function Login() {
     //funcion  async login
     try {
       const res = await AuthService.login(credentials)
+      console.log(res.data)
       TokenStorageService.saveToken(res.data.token)    
       sessionStorage.setItem("userId",res.data.id);
       sessionStorage.setItem("moviesRented",JSON.stringify(res.data.movies));

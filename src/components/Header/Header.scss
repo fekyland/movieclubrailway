@@ -1,4 +1,25 @@
 .Header {
-    background-color: aqua;
+    background-color: rgba(0, 255, 255, 0);
     width: 100%;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul a {
+    text-decoration: none;
+    padding: 0.5em 1em;
+
+    &:hover {
+        color: rgb(33, 183, 68);
+    }
+}
+
+.active-link {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
 }

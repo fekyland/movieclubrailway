@@ -73,3 +73,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+body {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  
+  
+}
+
+h1{
+  font-size: 30px;
+  font-weight: 700;
+}

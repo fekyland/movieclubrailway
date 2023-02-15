@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import "./RentedMovie.scss";
+import "./RentedMovie";
 
 import { useSelector } from "react-redux";
 import Movie from "../components/Movie/Movie";

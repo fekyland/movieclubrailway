@@ -80,11 +80,6 @@ export default function Login() {
     <div>
       <div className="container pt-5 col-lg-3">
         <h2>Login</h2>
-
-        <pre className="text-start">
-          {JSON.stringify(formValues, undefined, 2)}
-        </pre>
-
         <form className="text-start" noValidate onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Email address</label>

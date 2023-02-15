@@ -25,6 +25,9 @@ stored in flexible JSON-like documents.
 ### On Deploy
 https://kaleidoscopic-frangipane-696f8c.netlify.app
 
+Admin login: federico23@gmail.com
+Aass: 123456
+
 ### Authors
 @fekyland
 

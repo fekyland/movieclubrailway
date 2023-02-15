@@ -28,13 +28,13 @@ function Movie({ movie }) {
             className="card-img-top img-fluid round"
             alt="..."
           />
-          <div className="vote-average vote-average--movie">
+          <div className="vote-average vote-average--movie ">
             {movie.vote_average}
           </div>
         </div>
 
         <div className="card-body">
-          <h5 className="card-title mb-2 mt-2 fs-6 fw-bold">{movie.title}</h5>
+          <h5 className="card-title mb-2 mt-2 fs-6 fw-bold"><h1>{movie.title}</h1></h5>
           <div className="release-date">{getYear(movie.release_date)}</div>
         </div>
       </div>

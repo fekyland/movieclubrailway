@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import UserService from '../../_services/UserService'
 import TokenStorageService from '../../_services/TokenStorageService'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { logout } from '../../Redux/reducer/User.js'
+import { useDispatch } from 'react-redux'
+
 
 export default function Admin() {
   const navigate = useNavigate()
   const token = TokenStorageService.getToken()
+  const dispatch = useDispatch()
   const [users, setUsers] = useState([])
   console.log(token)
   useEffect(() => {
@@ -31,6 +35,8 @@ export default function Admin() {
   }
   const handleLogout = () => {
     TokenStorageService.logOut()
+    dispatch(logout())
+    navigate('/movies')
     navigate('/')
   }
 
